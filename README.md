@@ -1,2 +1,0 @@
-# Hogwarts
--Hogwarts school exercise
