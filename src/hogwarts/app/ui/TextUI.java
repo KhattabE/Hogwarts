@@ -1,5 +1,6 @@
 package hogwarts.app.ui;
 
+import hogwarts.app.App;
 import hogwarts.data.House;
 import hogwarts.data.Student;
 
@@ -10,10 +11,12 @@ import java.util.Scanner;
 public class TextUI {
 
     private ArrayList<Student> students;
+    private App app;
 
 
-    public TextUI(ArrayList<Student> students) {
+    public TextUI(ArrayList<Student> students, App app) {
         this.students = students;
+        this.app =  app;
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -43,81 +46,36 @@ public class TextUI {
             }
 
             switch (userChoice){
-                case 1 -> listAllStudents();
+                case 1 -> app.listAllStudents();
                 case 2 -> createNewStudent();
                 case 3 -> System.exit(0);
+
             }
 
-            userChoice = -1;
+
         }
 
 
     }
 
-    private void loadStudents() {
-        // Opret huse
-        House gryffindor = new House("Gryffindor");
-        House slytherin = new House("Slytherin");
-        House ravenclaw = new House("Ravenclaw");
-        House hufflepuff = new House("Hufflepuff");
-
-        // Opret studerende (navn, hus, alder)
-        Student harry = new Student("Harry Potter", gryffindor, 17);
-        Student ron = new Student("Ronald Weasley", gryffindor, 17);
-        Student hermione = new Student("Hermione Granger", gryffindor, 17);
-
-        // Tilføj til listen
-        students.add(harry);
-        students.add(ron);
-        students.add(hermione);
-    }
-
-    private void listAllStudents() {
-        System.out.println("\nList of all students:");
-        System.out.println("----------------------");
-
-        for (Student student : students) {
-            System.out.println("Name: " + student.getName());
-            System.out.println("House: " + student.getHouse().getName());
-            System.out.println("Age: " + student.getAge());
-            System.out.println();
-        }
-
-        System.out.println("----------------------\n");
-    }
-
-    private void createNewStudent() {
+    public void createNewStudent() {
         System.out.print("Enter student name: ");
-        String name = scanner.nextLine();
+        String studentName = scanner.nextLine();
 
         System.out.print("Enter student age: ");
-        int age = Integer.parseInt(scanner.nextLine());
+        int studentAge = Integer.parseInt(scanner.nextLine());
 
-        System.out.println("Choose a house:");
-        System.out.println("1. Gryffindor");
-        System.out.println("2. Slytherin");
-        System.out.println("3. Ravenclaw");
-        System.out.println("4. Hufflepuff");
+        System.out.print("Enter student house: ");
+        String houseName = scanner.nextLine();
 
-        int houseChoice = Integer.parseInt(scanner.nextLine());
-        House selectedHouse = null;
+        House studentHouse = new House(houseName);
 
-        switch (houseChoice) {
-            case 1 -> selectedHouse = new House("Gryffindor");
-            case 2 -> selectedHouse = new House("Slytherin");
-            case 3 -> selectedHouse = new House("Ravenclaw");
-            case 4 -> selectedHouse = new House("Hufflepuff");
-            default -> {
-                System.out.println("Invalid choice. Student not created.");
-                return;
-            }
-        }
+        Student studentss = new Student(studentName, studentHouse, studentAge);
+        students.add(studentss);
 
-        Student newStudent = new Student(name, selectedHouse, age);
-        students.add(newStudent);
-
-        System.out.println("Student successfully created!\n");
     }
+
+
 
 
 }
