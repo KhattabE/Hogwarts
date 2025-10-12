@@ -6,6 +6,7 @@ import hogwarts.data.Student;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -81,6 +82,11 @@ public class App {
 
     public void saveStudents(){
         System.out.println("Saving students");
+
+        PrintStream output = System.out;
+        for (Student student : students){
+            output.println(student.getName() + ";" + student.getHouse() + ";" + student.getAge());
+        }
     }
 
 
