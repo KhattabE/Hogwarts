@@ -48,12 +48,19 @@ public class TextUI {
             switch (userChoice){
                 case 1 -> app.listAllStudents();
                 case 2 -> createNewStudent();
-                case 3 -> System.exit(0);
+                case 3 -> {
+                    return;
+                }
 
             }
 
 
         }
+
+
+
+
+
 
 
     }
