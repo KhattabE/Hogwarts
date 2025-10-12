@@ -15,7 +15,7 @@ public class App {
     ArrayList<Student> students = new ArrayList<>();
 
 
-    public void loadStudents(){
+    public void loadStudents() {
         House slytherin = new House("Slytherin");
         House gryffindor = new House("Gryffindor");
         House ravenclaw = new House("Ravenclaw");
@@ -48,13 +48,10 @@ public class App {
         }
 
 
-
     }
 
 
-
-
-    public void start(){
+    public void start() {
         System.out.println("--------------------------------------------");
         System.out.println("The application has started!");
         System.out.println("--------------------------------------------");
@@ -69,7 +66,7 @@ public class App {
 
 
     public void listAllStudents() {
-        for (Student student : students){
+        for (Student student : students) {
             System.out.printf("%s, age %d, house: %s%n",
                     student.getName(),
                     student.getAge(),
@@ -80,13 +77,21 @@ public class App {
     }
 
 
-    public void saveStudents(){
+    public void saveStudents() {
         System.out.println("Saving students");
 
-        PrintStream output = System.out;
-        for (Student student : students){
-            output.println(student.getName() + ";" + student.getHouse() + ";" + student.getAge());
+        try {
+            File file = new File("students.csv");
+            PrintStream output = new PrintStream(file);
+            output.println("name;house;age");
+            for (Student student : students) {
+                output.println(student.getName() + ";" + student.getHouse() + ";" + student.getAge());
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
+    }
+
     }
 
 
@@ -95,4 +100,4 @@ public class App {
 
 
 
-}
+
