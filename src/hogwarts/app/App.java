@@ -13,7 +13,8 @@ import java.util.Scanner;
 public class App {
 
     ArrayList<Student> students = new ArrayList<>();
-
+    
+    Scanner scanner = new Scanner(System.in);
 
     public void loadStudents() {
         House slytherin = new House("Slytherin");
@@ -80,19 +81,35 @@ public class App {
     public void saveStudents() {
         System.out.println("Saving students");
 
-        try {
-            File file = new File("students.csv");
-            PrintStream output = new PrintStream(file);
-            output.println("name;house;age");
-            for (Student student : students) {
-                output.println(student.getName() + ";" + student.getHouse() + ";" + student.getAge());
+        
+        boolean isFileSaved = false;
+        while (!isFileSaved){
+            
+            try {
+                File file = new File("students.csv");
+                PrintStream output = new PrintStream(file);
+                output.println("name;house;age");
+                for (Student student : students) {
+                    output.println(student.getName() + ";" + student.getHouse() + ";" + student.getAge());
+                }
+                isFileSaved = true;
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Could not save list!");
+                System.out.print("Failed to save, Try again? (yes/no): ");
+                String answer = scanner.nextLine();
+                
+                if(answer.equalsIgnoreCase("no")){
+                    break;
+                }
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            
         }
+        
     }
 
-    }
+    
+}
 
 
 
